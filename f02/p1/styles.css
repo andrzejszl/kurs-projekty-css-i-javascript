@@ -1,0 +1,200 @@
+/* font-family: 'Oswald', sans-serif;
+font-family: 'Roboto', sans-serif;
+font-family: 'Roboto Slab', serif; */
+
+
+/* style bazowe */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 10px;
+}
+
+/* button input  styles */
+
+.button {
+    font-family: 'Roboto Slab', sans-serif;
+    /* font-weight: bold; */
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 7%;
+    cursor: pointer;
+}
+
+.input {
+    height: 50px;
+    width: 25vw;
+    min-width: 250px;
+}
+
+.button:hover {
+    background-color: #ddd;
+}
+
+/* banner */
+
+.banner {
+    position: relative;
+    background-color: #ccc;
+    min-height: 300px;
+    height: 30vh;
+}
+
+.banner__container {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    text-align: center;
+}
+
+.banner__slogan {
+    font-family: 'Oswald', sans-serif;
+    font-size: 3rem;
+    text-transform: uppercase;
+}
+
+.banner__slogan--size-small {
+    font-size: 2rem;
+}
+
+.banner__button {
+    position: absolute;
+    right: 10%;
+    bottom: 10%;
+}
+
+
+/* navbar */
+.bar {
+    position: relative;
+    height: 70px;
+    font-size: 1.2rem;
+    border: 1px solid black;
+
+}
+
+.bar__img {
+    height: 66px;
+    width: 66px;
+    background-color: transparent;
+    z-index: -99999;
+}
+
+.bar__logo {
+
+    height: 70px;
+    display: inline-block;
+}
+
+.bar_name {
+    position: absolute;
+    line-height: 70px;
+    display: inline-block;
+}
+
+.bar__nav {
+    border: 1px solid black;
+    position: absolute;
+    left: 200px;
+    right: 100px;
+    top: 10px;
+    height: 50px;
+    display: inline-block;
+    line-height: 50px;
+    padding: 0 10px 0 50px;
+}
+
+.bar__nav-element {
+    display: inline-block;
+
+}
+
+.bar__nav-link {
+    padding: 15px 10px;
+    text-decoration: none;
+}
+
+/* search input and button */
+
+.searchzone {
+    text-align: right;
+    margin: 20px;
+    height: 50px;
+}
+
+.searchzone__button {
+    margin: 0 20px 20px;
+}
+
+.searchzone__input {
+    position: relative;
+    top: -4px;
+    line-height: 50px;
+    font-size: 1.6rem;
+}
+
+
+/* articles */
+
+.article {
+    padding: 20px 5%;
+}
+
+.article__main {
+    position: relative;
+    margin: 60px 0;
+    background-color: #ccc;
+    padding: 5% 5% 10%;
+}
+
+.article__title {
+    text-transform: uppercase;
+    margin: 10px 0;
+    font-size: 2rem;
+    font-family: 'Roboto Slab', serif;
+}
+
+.article__title--size-small {
+    font-size: 1.6rem;
+    margin: 20px 0;
+}
+
+.article__description {
+    font-size: 1.6rem;
+    color: grey;
+}
+
+.article__text {
+    margin-top: 15px;
+    font-size: 1.6rem;
+}
+
+.article__button {
+    font-size: 1.2rem;
+    position: absolute;
+    right: 5%;
+    bottom: 5%;
+    text-transform: capitalize;
+}
+
+
+/* footer */
+
+.footer {
+    border: 1px solid black;
+    height: 70px;
+}
+
+.footer__text {
+    font-size: 1.4rem;
+    line-height: 70px;
+    margin-left: 7%;
+}
