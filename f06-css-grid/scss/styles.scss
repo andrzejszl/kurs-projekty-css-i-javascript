@@ -1,0 +1,105 @@
+body {
+    margin: 0;
+    font-family: arial;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: minmax(120px, 200px) minmax(240px, 1fr) 80px;
+    grid-template-rows: auto 1fr auto auto;
+    grid-template-areas: "logo search menu"
+        "gallery gallery gallery"
+        "contact contact contact"
+        "footer footer footer";
+
+    @media (min-width: 1024px) {
+        grid-template-columns: minmax(300px, auto) 1fr;
+        grid-template-rows: auto auto auto 1fr auto auto;
+        grid-template-areas: "logo gallery"
+            "menu gallery"
+            "search gallery"
+            ". gallery"
+            "contact gallery"
+            "footer footer";
+    }
+
+    //kontener
+    min-height: 100vh;
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.logo {
+    // grid-column-start: 1;
+    // grid-column-end: 2;
+    // grid-row-start: 1;
+    // grid-row-end: 2;
+    grid-area: logo;
+    background-color: rgb(151, 85, 85);
+    height: 75px;
+
+    // @media (min-width: 1024px) {
+    //     grid-area: logo;
+    // }
+}
+
+.search {
+    grid-column: 2/3;
+    grid-row: 1/2;
+    background-color: rgb(46, 43, 173);
+
+    @media (min-width: 1024px) {
+        grid-area: search;
+        min-height: 80px;
+    }
+}
+
+.menu {
+    grid-column: -1/-2;
+    grid-row: 1;
+    background-color: rgb(195, 206, 46);
+
+    @media (min-width: 1024px) {
+        grid-area: menu;
+        min-height: 80px;
+    }
+}
+
+.gallery {
+    // grid-column: 1/-1;
+    // grid-row: 2;
+    background-color: rgb(53, 109, 194);
+    grid-area: gallery;
+    //kontener
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(205px, 1fr));
+    gap: 15px;
+    padding: 120px 15px 15px;
+    position: relative;
+
+    img {
+        width: 100%;
+    }
+
+    h1 {
+        position: absolute;
+        top: 30px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+}
+
+.contact {
+    height: 60px;
+    background-color: rgb(52, 204, 60);
+    // grid-area: 3/1/4/-1;
+    grid-area: contact;
+}
+
+.footer {
+    grid-area: footer;
+    height: 60px;
+    background-color: rgb(87, 11, 11);
+}
