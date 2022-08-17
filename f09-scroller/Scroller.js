@@ -8,6 +8,7 @@ class Scroller {
         this.isThrottled = false;
 
         this.drawNavigation();
+
     }
 
     isScrolledIntoView(el) {
@@ -18,7 +19,7 @@ class Scroller {
 
     }
 
-    listenScroll = (e) => {
+    listenScroll(e) {
         if (this.isThrottled) return;
         this.isThrottled = true;
 
@@ -26,10 +27,10 @@ class Scroller {
             this.isThrottled = false
         }, 500);
 
-        const direction = e.wheelDelta < 0 ? 1 : -1;
+        const direction = e.deltaY > 0 ? 1 : -1;
         this.scroll(direction);
     }
-    scroll = (direction) => {
+    scroll(direction) {
         if (direction === 1) {
             const isLastSection = this.currentSectionIndex === this.sections.length - 1;
             if (isLastSection) return;
@@ -41,7 +42,7 @@ class Scroller {
         this.currentSectionIndex = this.currentSectionIndex + direction;
         this.scrollToCurrentSection();
     }
-    scrollToCurrentSection = () => {
+    scrollToCurrentSection() {
         this.selectActiveNavItem();
         this.sections[this.currentSectionIndex].scrollIntoView({
             behavior: 'smooth',
@@ -49,7 +50,7 @@ class Scroller {
         })
     }
 
-    drawNavigation = () => {
+    drawNavigation() {
         this.navigationContainer = document.createElement('aside');
         this.navigationContainer.classList.add('scroller__navigation');
         const list = document.createElement('ul');
@@ -71,7 +72,7 @@ class Scroller {
         this.selectActiveNavItem();
     }
 
-    selectActiveNavItem = () => {
+    selectActiveNavItem() {
         if (this.navigationContainer) {
             const navigationItems = this.navigationContainer.querySelectorAll('li');
 
