@@ -14,12 +14,13 @@ class Scroller {
     isScrolledIntoView(el) {
         const rect = el.getBoundingClientRect()
         const elemTop = rect.top;
-        const elemBottom = rect.bottom;
+        const elemBottom = Math.floor(rect.bottom);
         const isVisible = (elemTop >= 0) && (elemBottom <= Math.floor(window.innerHeight));
 
+        return isVisible;
     }
 
-    listenScroll(e) {
+    listenScroll(event) {
         if (this.isThrottled) return;
         this.isThrottled = true;
 
@@ -27,7 +28,7 @@ class Scroller {
             this.isThrottled = false
         }, 500);
 
-        const direction = e.deltaY > 0 ? 1 : -1;
+        const direction = event.deltaY > 0 ? 1 : -1;
         this.scroll(direction);
     }
     scroll(direction) {
