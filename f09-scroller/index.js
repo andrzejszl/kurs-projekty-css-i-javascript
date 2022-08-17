@@ -5,12 +5,19 @@ document.addEventListener('DOMContentLoaded', function () {
     let isThrottled = false;
 
     document.addEventListener('wheel', function (event) {
-        const direction = event.wheelDelta < 0 ? 1 : -1;
         if (isThrottled) return;
         isThrottled = true;
+
         setTimeout(function () {
             isThrottled = false
-        }, 1000);
+        }, 500);
+
+        const direction = event.wheelDelta < 0 ? 1 : -1;
+
+        scroll(direction);
+    })
+
+    function scroll(direction) {
         if (direction === 1) {
             const isLastSection = currentSectionIndex === sections.length - 1;
             if (isLastSection) return;
@@ -20,10 +27,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         currentSectionIndex = currentSectionIndex + direction;
-        console.log(currentSectionIndex);
+
+        scrollToCurrentSection();
+    }
+
+    function scrollToCurrentSection() {
         sections[currentSectionIndex].scrollIntoView({
             behavior: 'smooth',
             block: 'start',
         })
-    })
+    }
 })
