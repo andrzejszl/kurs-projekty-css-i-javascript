@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX - FETCH</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <form class="generator" id="generator">
+        <div class="generator__gender">
+            <label for="gender">Wybierz płeć
+                <select class="generator__select" name="gender">
+                    <option value="male">Mężczyźni</option>
+                    <option value="female">Kobiety</option>
+                    <option value="both">Wszyscy</option>
+                </select>
+            </label>
+        </div>
+        <div class="generator__count">
+            <label for="count">Liczba osób:
+                <input class="generator__input" type="number" name="count">
+            </label>
+            <input type="submit" class="button" value="Pobierz użytkowników">
+        </div>
+    </form>
+
+    <section class="results"></section>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

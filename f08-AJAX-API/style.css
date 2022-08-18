@@ -1,0 +1,50 @@
+body {
+    font-family: arial;
+    margin: 0;
+    padding: 0;
+}
+
+.generator {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    background-color: #ccc;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 10px 10px 60px;
+    font-size: 20px;
+}
+
+.generator__gender,
+.generator__count {
+    margin: 30px;
+}
+
+input.button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+}
+
+.generator__input,
+.generator__select,
+input.button {
+    font-size: 20px;
+}
+
+.results {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    background-color: #ccc;
+    max-width: 1000px;
+    margin: 10px auto 0;
+    border: 1px solid black;
+}
+
+.results .result {
+    text-align: center;
+    box-shadow: 0 0 1px 0 black;
+    padding: 5px;
+}
