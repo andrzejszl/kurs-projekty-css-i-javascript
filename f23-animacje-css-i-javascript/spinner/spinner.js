@@ -34,7 +34,7 @@ let time = performance.now();
 console.log(time);
 
 const rotateRAF2 = (currentT) => {
-    if (currentT - time > 16) {
+    if (currentT - time > 16) { // 1000ms / 16 => 60klatek
         time = currentT;
         degRAF2 += degChangeRAF2;
         spinnerRAF2.style.transform = `rotate(${degRAF2}deg)`;
