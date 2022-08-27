@@ -1,0 +1,20 @@
+@import 'variables';
+
+.container {
+    max-width: $max-width;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 $main-spacing;
+}
+
+img {
+    max-width: 100%;
+}
+
+.app__images {
+    margin: $main-spacing 0;
+}
+
+.app__description {
+    margin-bottom: $main-spacing;
+}

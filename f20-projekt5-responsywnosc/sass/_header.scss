@@ -1,0 +1,18 @@
+@import 'variables';
+
+.header {
+    background-color: $color-primary;
+    color: white;
+    padding: $main-spacing 0;
+    margin-bottom: $main-spacing;
+
+    .header__content {
+        display: flex;
+        align-items: center;
+    }
+
+    .header__logo {
+        margin-right: $main-spacing / 2;
+        width: $main-spacing * 2;
+    }
+}
