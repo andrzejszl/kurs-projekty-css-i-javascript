@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>requestAnimationFrame</title>
+</head>
+
+<body>
+    <div></div>
+
+    <script>
+        const div = document.querySelector('div');
+        let time = 0,
+            frames = 0,
+            beforeTime = performance.now(),
+            result = 0;
+        console.log(beforeTime);
+
+        const counter = (currentTime) => {
+            if (currentTime - beforeTime > 100) {
+                result++;
+                beforeTime = currentTime;
+                // console.log('wiecej niz 100ms');
+            }
+            frames++;
+            div.textContent =
+                `Czas: ${time.toFixed(1)}; Liczba klatek: ${frames}; FPS: ${(frames/time).toFixed()}; Punkty: ${result}; Aktualny czas wywołania rAF: ${currentTime}`;
+            requestAnimationFrame(counter)
+        }
+
+        const timer = () => {
+            time += 0.1
+            setTimeout(timer, 100);
+            div.textContent = time.toFixed(1);
+        }
+
+        timer();
+        counter();
+    </script>
+</body>
+
+</html>
