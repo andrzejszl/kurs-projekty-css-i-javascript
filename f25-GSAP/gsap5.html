@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSAP 4</title>
+    <style>
+        div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: tahoma, arial, sans-serif;
+            font-size: 80px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div>W</div>
+    <div>ŻYCIU</div>
+    <div>WAŻNE</div>
+    <div>SĄ</div>
+    <div>NIE</div>
+    <div>TYLKO</div>
+    <div>CHWILE</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
+    <script>
+        TweenLite.defaultEase = "none";
+        console.log(TweenLite.defaultEase);
+        const elements = document.querySelectorAll('div');
+        const colors = () => {
+            const colorList = ['red', 'blue', 'green'];
+            const color = colorList[Math.floor(Math.random() * colorList.length)];
+            return color;
+        }
+        TweenMax.staggerTo(elements, .5, {
+            opacity: 1,
+            color: colors,
+        }, 1)
+        TweenMax.staggerTo(elements, .2, {
+            opacity: 0,
+            delay: .9,
+        }, 1)
+    </script>
+</body>
+
+</html>
