@@ -23,6 +23,7 @@ body {
     height: 50px;
     border-radius: 50%;
     background-color: cadetblue;
+    /* animation: fly-ball-x 1s cubic-bezier(.17, .67, .6, 1), fly-ball-y 1s linear; */
 }
 
 .column {
@@ -43,6 +44,8 @@ body {
     width: 17%;
     height: 20px;
     background-color: burlywood;
+    animation: spring 1.5s infinite alternate paused;
+    /* animation: release-spring .2s infinite linear; */
 }
 
 .panel {
@@ -64,7 +67,7 @@ body {
     line-height: 250%;
     user-select: none;
     cursor: pointer;
-    transition: background-color .3s linear;
+    transition: background-color .3s;
 }
 
 @media (max-width: 800px) {
@@ -88,4 +91,44 @@ body {
     width: 5%;
     height: 30px;
     background-color: darkred;
+    animation: fill 1.5s infinite alternate ease-out paused;
+}
+
+:root {
+    --spring-left: 0;
+    --power-x: 0;
+}
+
+@keyframes fill {
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes spring {
+    100% {
+        left: -14%;
+    }
+}
+
+@keyframes release-spring {
+    0% {
+        left: var(--spring-left, -14%);
+    }
+
+    100% {
+        left: -1%;
+    }
+}
+
+@keyframes fly-ball-x {
+    /* 100% {
+        left: var(--power-x, 1300px);
+    } */
+}
+
+@keyframes fly-ball-y {
+    100% {
+        bottom: 0;
+    }
 }
