@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSAP 7 - Play</title>
+    <style>
+        .rect {
+            margin: 100px;
+            width: 100px;
+            height: 100px;
+            background-color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <button>Animacja START/STOP</button>
+    <div class="rect"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
+    <script>
+        const rect = document.querySelector('.rect');
+        const btn = document.querySelector('button');
+        let paused = true;
+        const timeline = new TimelineMax({
+            repeat: -1,
+            yoyo: true,
+            repeatDelay: 1,
+            onStart: () => console.log('start'),
+            // onComplete: () => alert('koniec'),
+            paused: paused,
+            delay: 2,
+        });
+        // timeline.resume();
+        timeline.timeScale(2)
+            .to(rect, 1, {
+                x: "+=200"
+            })
+            .to(rect, 1, {
+                y: 200
+            })
+            .add('half')
+            .to(rect, 1, {
+                x: "-=200"
+            })
+            .to(rect, 1, {
+                y: 0
+            })
+            .to(rect, 1, {
+                backgroundColor: 'red'
+            }, "half")
+
+
+        btn.addEventListener('click', () => {
+            // console.log(timeline);
+            if (paused) {
+                paused = !paused;
+                timeline.resume()
+            } else {
+                paused = !paused;
+                timeline.pause()
+            }
+        })
+    </script>
+</body>
+
+</html>
