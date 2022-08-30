@@ -1,135 +1,118 @@
-/**
- * Webpack main configuration file
- */
+import Dotenv from "dotenv-webpack"
+import path from "path"
+import MiniCssExtractPlugin from "mini-css-extract-plugin"
+import HtmlWebpackPlugin from "html-webpack-plugin"
+import CopyPlugin from "copy-webpack-plugin"
 
-const path = require('path');
-const fs = require('fs');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-
-const environment = require('./configuration/environment');
-
-const templateFiles = fs.readdirSync(environment.paths.source)
-  .filter((file) => ['.html', '.ejs'].includes(path.extname(file).toLowerCase())).map((filename) => ({
-    input: filename,
-    output: filename.replace(/\.ejs$/, '.html'),
-  }));
-
-const htmlPluginEntries = templateFiles.map((template) => new HTMLWebpackPlugin({
-  inject: true,
-  hash: false,
-  filename: template.output,
-  template: path.resolve(environment.paths.source, template.input),
-  favicon: path.resolve(environment.paths.source, 'images', 'favicon.ico'),
-}));
-
-module.exports = {
+export default {
+  // Define the entry points of our application (can be multiple for different sections of a website)
   entry: {
-    app: path.resolve(environment.paths.source, 'js', 'app.js'),
+    main: "./src/js/main.js",
   },
+
+  // Define the destination directory and filenames of compiled resources
   output: {
-    filename: 'js/[name].js',
-    path: environment.paths.output,
+    filename: "js/[name].js",
+    path: path.resolve(process.cwd(), "./public"),
   },
+
+  // Define development options
+  devtool: "source-map",
+
+  // Define loaders
   module: {
     rules: [
-      {
-        test: /\.((c|sa|sc)ss)$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
-      },
+      // Use babel for JS files
       {
         test: /\.js$/,
-        exclude: /node_modules/,
-        use: ['babel-loader'],
-      },
-      {
-        test: /\.(png|gif|jpe?g|svg)$/i,
-        type: 'asset',
-        parser: {
-          dataUrlCondition: {
-            maxSize: environment.limits.images,
-          },
-        },
-        generator: {
-          filename: 'images/design/[name].[hash:6][ext]',
-        },
-      },
-      {
-        test: /\.(eot|ttf|woff|woff2)$/,
-        type: 'asset',
-        parser: {
-          dataUrlCondition: {
-            maxSize: environment.limits.images,
-          },
-        },
-        generator: {
-          filename: 'images/design/[name].[hash:6][ext]',
-        },
-      },
-    ],
-  },
-  optimization: {
-    minimizer: [
-      '...',
-      new ImageMinimizerPlugin({
-        minimizer: {
-          implementation: ImageMinimizerPlugin.imageminMinify,
+        exclude: /(node_modules)/,
+        use: {
+          loader: "babel-loader",
           options: {
-            // Lossless optimization with custom option
-            // Feel free to experiment with options for better result for you
-            plugins: [
-              ['gifsicle', { interlaced: true }],
-              ['jpegtran', { progressive: true }],
-              ['optipng', { optimizationLevel: 5 }],
-              // Svgo configuration here https://github.com/svg/svgo#configuration
-              [
-                'svgo',
-                {
-                  plugins: [
-                    {
-                      name: 'removeViewBox',
-                      active: false,
-                    },
-                  ],
-                },
-              ],
-            ],
+            presets: [
+              "@babel/preset-env"
+            ]
+          }
+        }
+      },
+      // CSS, PostCSS, and Sass
+      {
+        test: /\.(scss|css)$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 2,
+              sourceMap: true,
+              url: false,
+            }
           },
-        },
-      }),
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: [
+                  "autoprefixer",
+                ]
+              }
+            }
+          },
+          "sass-loader"
+        ],
+      },
+      // File loader for images
+      {
+        test: /\.(jpg|jpeg|png|git|svg)$/i,
+        type: "asset/resource",
+      }
     ],
   },
+
+  // Define used plugins
   plugins: [
+    // Load .env file for environment variables in JS
+    new Dotenv({
+      path: "./.env"
+    }),
+
+    // Extracts CSS into separate files
     new MiniCssExtractPlugin({
-      filename: 'css/[name].css',
+      filename: "css/[name].css",
+      chunkFilename: "[id].css"
     }),
-    new CleanWebpackPlugin({
-      verbose: true,
-      cleanOnceBeforeBuildPatterns: ['**/*', '!stats.json'],
-    }),
-    new CopyWebpackPlugin({
+
+    // Copy images to the public folder
+    new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(environment.paths.source, 'images', 'content'),
-          to: path.resolve(environment.paths.output, 'images', 'content'),
-          toType: 'dir',
-          globOptions: {
-            ignore: ['*.DS_Store', 'Thumbs.db'],
-          },
-        },
-        {
-          from: path.resolve(environment.paths.source, 'videos'),
-          to: path.resolve(environment.paths.output, 'videos'),
-          toType: 'dir',
-          globOptions: {
-            ignore: ['*.DS_Store', 'Thumbs.db'],
-          },
-        },
-      ],
+          from: "src/images",
+          to: "images",
+        }
+      ]
     }),
-  ].concat(htmlPluginEntries),
-  target: 'web',
+
+    // Inject styles and scripts into the HTML
+    new HtmlWebpackPlugin({
+      template: path.resolve(process.cwd(), "index.html")
+    })
+  ],
+
+  // Configure the "webpack-dev-server" plugin
+  devServer: {
+    static: {
+      directory: path.resolve(process.cwd(), "public")
+    },
+    watchFiles: [
+      path.resolve(process.cwd(), "index.html")
+    ],
+    compress: true,
+    port: process.env.PORT || 9090,
+    hot: true,
+  },
+
+  // Performance configuration
+  performance: {
+    hints: false
+  }
 };
